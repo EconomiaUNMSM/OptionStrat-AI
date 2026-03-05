@@ -10,7 +10,7 @@ Diseñada para inversionistas minoristas, institucionales y profesionales intere
 *Muestra completa de la plataforma ideal para introducir la tecnología a nuevos usuarios e interesados.*
 
 <video width="100%" controls>
-  <source src="assets/video_muestra.mp4" type="video/mp4">
+  <source src="https://github.com/EconomiaUNMSM/OptionStrat-AI/raw/main/assets/video_muestra.mp4" type="video/mp4">
   Tu navegador no soporta la etiqueta de video.
 </video>
 
