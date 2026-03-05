@@ -1,0 +1,75 @@
+:root {
+  /* Dark Space Theme Variables */
+  --bg-primary: #0F1218;
+  --bg-secondary: rgba(26, 29, 36, 0.6);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  
+  /* PnL Semantics */
+  --text-primary: #E2E8F0;
+  --text-muted: #94A3B8;
+  --profit-gradient: linear-gradient(135deg, #00C853 0%, #00E676 100%);
+  --loss-gradient: linear-gradient(135deg, #EF5350 0%, #FF5252 100%);
+  
+  /* Font Family Institutional */
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', 'Courier New', monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(circle at 15% 50%, rgba(0, 200, 83, 0.03), transparent 25%),
+                    radial-gradient(circle at 85% 30%, rgba(239, 83, 80, 0.03), transparent 25%);
+}
+
+/* Utilitarios Glassmorphism */
+.glass-panel {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.mono-numbers {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; /* Alienación perfecta de data financiera */
+}
+
+/* Configuración de barras de desplazamiento (Scrollbars) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary); 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); 
+  border-radius: 4px;
+  border: 1px solid var(--border-glass);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25); 
+}
+
+/* Configuraciones para Select y Options del buscador */
+select {
+  color: #FFF !important;
+  background-color: var(--bg-secondary) !important;
+  cursor: pointer;
+}
+
+select option {
+  background-color: #1A1D24; /* Un tono oscuro sólido para que se lean bien */
+  color: #E2E8F0;
+}
