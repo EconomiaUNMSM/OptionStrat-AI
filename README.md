@@ -1,108 +1,110 @@
 # OptionStrat AI – Advanced Derivatives Simulator
 
-**OptionStrat AI** es una plataforma de software e ingeniería financiera especializada en la simulación predictiva de derivados (Opciones sobre Acciones con estilo Americano) impulsada por Inteligencia Artificial y matemáticas cuantitativas.
+[English](README.md) | [Español](README-es.md) | [Português](README-pt.md) | [中文](README-zh.md)
 
-Diseñada para inversionistas minoristas, institucionales y profesionales interesados en el mundo de las opciones sobre acciones, esta herramienta trasciende las típicas calculadoras de P&L, fusionando **Black-Scholes-Merton**, **Noticias Financieras** (Finviz), **Movimientos de Insiders** operando en las sombras (13F filings mediante YahooQuery) y agente de **LLM interactivo** para interpretar el riesgo neto del portafolio. Todo, empaquetado bajo un Front-End React de última generación asíncrono.
+**OptionStrat AI** is a software and financial engineering platform specialized in the predictive simulation of derivatives (American-style Stock Options) driven by Artificial Intelligence and quantitative mathematics.
 
----
-
-## ▶️ Demo y Plataforma en Acción
-*Muestra completa de la plataforma ideal para introducir la tecnología a nuevos usuarios e interesados.*
-
-![Demo de OptionStrat AI](assets/video_muestra.gif)
+Designed for retail, institutional, and professional investors interested in the world of stock options, this tool transcends typical P&L calculators. It merges **Black-Scholes-Merton**, **Financial News** (Finviz), **Insider Trading Movements** operating in the shadows (13F filings via YahooQuery), and an interactive **LLM agent** to interpret the net risk of the portfolio. Everything is packaged under a state-of-the-art asynchronous modern React Front-End.
 
 ---
 
-## 📸 Funcionalidades Clave
+## ▶️ Demo and Platform in Action
+*Complete showcase of the platform, ideal for introducing the technology to new users and interested parties.*
 
-1. **Option Builder (T-Quote Enriquecido)**
-   - Extrae cadenas reales de opciones via *Yahoo Finance* (Bid, Ask, Strikes, IV, Volume y Open Interest vivo).
-   - Simetría 1:1, permite construir e insertar posiciones de Acciones de Contado frente a Opciones Derivadas para estrategias complejas de cobertura *(Covered Calls, Protective Puts)*.
-
-2. **Heatmap Dinámico de Riesgos (Python Quant Engine)**
-   - Motor BSM en milisegundos que procesa cambios en precio (Eje X) frente a los días que faltan hacia la expiración (Eje Y) para proyectar el PnL neto combinado de todo tu inventario.
-   - Cuenta con sliders reactivos para *Shock de Volatilidad (Vega)* y simulación acelerada hacia adelante.
-
-3. **Inteligencia Artificial (LLM Contextual)**
-   - Ya no interpretas las Griegas "a ciegas". Un Analista Cuantitativo de IA (vía OpenAI estructurado) leerá la cartera completa, agregando el Theta Decay y el Vega Net Risk, avisándote si tu Delta se vuelve asimétrico o tienes gamma ciego. Además, leerá el sentimiento del mercado, los insiders más recientes, los analistas y el precio objetivo promedio de los analistas.
-
-4. **Filtro Institucional de Sentimiento**
-   - Antes del análisis, el back-end extrae noticias de **FinViz** interpretándolas con *VaderSentiment* bajo métricas neutrales, bajistas o alcistas.
-   - Cruza estos datos con el volumen del **Insider Trading**, identificando C-Levels que están diluyendo posiciones o acumulando participaciones fuertes en su propia empresa la última semana.
-
-5. **Optimizador Matemático Cíclico (Theta Gang Recommender)**
-   - Pide estrategias según perfil de volatilidad: Conservador (~85% Probability of Profit), Balanceado o Agresivo.
-   - Automáticamente filtra opciones *zombies* escaneando exigencias de liquidez estrictas reales (Volume > 10, Open Interest > 50).
-   - Diseña Bull Put Spreads, Iron Condors Simétricos o Strangles listos para apretar *"Cargar al Simulador"*.
+![OptionStrat AI Demo](assets/video_muestra.gif)
 
 ---
 
-## 🛠 Arquitectura Tecnológica (Stack)
+## 📸 Key Features
+
+1. **Option Builder (Enriched T-Quote)**
+   - Extracts real option chains via *Yahoo Finance* (Live Bid, Ask, Strikes, IV, Volume, and Open Interest).
+   - 1:1 symmetry, allows building and inserting positions of underlying Stocks vs. Derivative Options for complex hedging strategies *(Covered Calls, Protective Puts)*.
+
+2. **Dynamic Risk Heatmap (Python Quant Engine)**
+   - BSM engine operating in milliseconds that processes changes in price (X Axis) versus days to expiration (Y Axis) to project the combined net PnL of your entire inventory.
+   - Features reactive sliders for *Volatility Shock (Vega)* and accelerated forward simulation.
+
+3. **Artificial Intelligence (Contextual LLM)**
+   - You no longer interpret the Greeks "blindly". An AI Quantitative Analyst (via structured OpenAI) will read the entire portfolio, aggregating Theta Decay and Net Vega Risk, warning you if your Delta becomes asymmetric or if you have blind gamma. Additionally, it reads market sentiment, recent insider activity, analyst ratings, and the average analyst target price.
+
+4. **Institutional Sentiment Filter**
+   - Before analysis, the back-end extracts news from **FinViz**, interpreting them with *VaderSentiment* under neutral, bearish, or bullish metrics.
+   - Cross-references this data with **Insider Trading** volume, identifying C-Levels diluting positions or accumulating strong stakes in their own company over the past week.
+
+5. **Cyclical Mathematical Optimizer (Theta Gang Recommender)**
+   - Requests strategies according to a volatility profile: Conservative (~85% Probability of Profit), Balanced, or Aggressive.
+   - Automatically filters out *zombie* options by scanning strict real liquidity requirements (Volume > 10, Open Interest > 50).
+   - Designs Bull Put Spreads, Symmetrical Iron Condors, or Strangles ready to click *"Load into Simulator"*.
+
+---
+
+## 🛠 Technological Architecture (Stack)
 
 ### Backend (Data, Quant & AI Engine)
-- **FastAPI**: Enrutamiento asíncrono para velocidad máxima de streaming de greeks y arrays P&L.
-- **Pydantic**: Tipado fuerte de modelos de negocio (OptionLeg, StrategyState).
-- **Pandas & NumPy**: Procesamiento tensorial para limpiar Option Chains y matrices subyacentes.
-- **SciPy**: Distribuciones estadísticas nativas (PDF, CDF) para formulación Black-Scholes de las Griegas (Delta, Gamma, Vega, Theta, Rho).
-- **YFinance & YahooQuery**: Motores principales de web-scraping tolerantes a fallos para recolección de precios spots y 13F.
-- **VaderSentiment & BeautifulSoup4**: Natural Language Processing nativo crudo sobre feeds HTML web para categorizar Euphoria/Pánico.
-- **LiteLLM**: Router híbrido LLM (Para orquestar envíos a OpenAI / OpenRouter en variables estructuradas).
+- **FastAPI**: Asynchronous routing for maximum streaming speed of greeks and P&L arrays.
+- **Pydantic**: Strong typing for business models (OptionLeg, StrategyState).
+- **Pandas & NumPy**: Tensor processing to clean Option Chains and underlying matrices.
+- **SciPy**: Native statistical distributions (PDF, CDF) for Black-Scholes formulation of the Greeks (Delta, Gamma, Vega, Theta, Rho).
+- **YFinance & YahooQuery**: Fault-tolerant main web-scraping engines for spot price gathering and 13F.
+- **VaderSentiment & BeautifulSoup4**: Raw native Natural Language Processing over web HTML feeds to categorize Euphoria/Panic.
+- **LiteLLM**: Hybrid LLM Router (To orchestrate requests to OpenAI / OpenRouter into structured variables).
 
 ### Frontend (Client-Side)
-- **React.js 18**: VDOM veloz.
-- **Vite**: Ultra Fast Bundler en hot-reload.
-- **Zustand**: Gestión global de estado anti un-necessary re-renders para acoplar la cadena interactiva del Builder y Heatmap en perfecta sincronía asíncrona (Debouncing functions incluídas).
-- **Recharts**: Rendering gráfico reactivo para mapas de riesgos bidimensionales de P&L.
-- **Glassmorphism CSS3**: Temática "Dark Institutional" 100% vectorizada en CSS vanilla. Sin Tailwind para mayor purismo y consistencia.
+- **React.js 18**: Fast VDOM.
+- **Vite**: Ultra Fast Bundler with hot-reload.
+- **Zustand**: Global state management to prevent un-necessary re-renders, tightly coupling the interactive Builder chain and Heatmap in perfect asynchronous synchrony (Debouncing functions included).
+- **Recharts**: Reactive graphic rendering for two-dimensional P&L risk maps.
+- **Glassmorphism CSS3**: "Dark Institutional" theme 100% vectorized in vanilla CSS. No Tailwind for greater purism and consistency.
 
 ---
 
-## 🚀 Instalación Local 
+## 🚀 Local Installation
 
-Para correr OptionStrat AI y evitar CORS requieres correr Back-End y Front-End en puertos separados concurrentemente.
+To run OptionStrat AI and avoid CORS issues, you need to run the Back-End and Front-End on separate ports concurrently.
 
-### 1. Levantar el Backend Server
+### 1. Launch the Backend Server
 ```bash
-# Navega a la carpeta backend
+# Navigate to the backend folder
 cd backend
 
-# Crea tu entorno Virtual e instalalo (Windows)
+# Create your Virtual Environment and install it (Windows)
 python -m venv venv
 venv\Scripts\activate
 
-# Instala todas las dependencias
+# Install all dependencies
 pip install -r requirements.txt
-# (El requirements incluye: fastapi, uvicorn, pydantic, pandas, numpy, scipy, yfinance, yahooquery, litellm, vaderSentiment, beautifulsoup4, fake_useragent, etc)
+# (The requirements include: fastapi, uvicorn, pydantic, pandas, numpy, scipy, yfinance, yahooquery, litellm, vaderSentiment, beautifulsoup4, fake_useragent, etc.)
 
-# [IMPORTANTE] Necesitas setear variables de entorno (Ej: API de OpenAI si deseas usar Ai Insights). 
-# Edita tu .env: OPENAI_API_KEY=tu_clave_aqui
+# [IMPORTANT] You need to set environment variables (e.g., OpenAI API if you want to use AI Insights).
+# Edit your .env: OPENAI_API_KEY=your_key_here
 
-# Lanza el servidor en el puerto 8000
+# Launch the server on port 8000
 uvicorn app.main:app --reload
 ```
 
-### 2. Levantar el Frontend Client
+### 2. Launch the Frontend Client
 ```bash
-# Abre una nueva terminal
-# Navega a la carpeta frontend
+# Open a new terminal
+# Navigate to the frontend folder
 cd frontend
 
-# Instala dependencias (Node Modules)
+# Install dependencies (Node Modules)
 npm install
 
-# Corre el servidor Frontend en localhost (Apunta localmente vía Client Proxy Axios al 8000)
+# Run the Frontend server on localhost (Points locally via Client Proxy Axios to 8000)
 npm run dev
 ```
 
-### 3. ¡Ejecutar!
-Abre tu navegador en `http://localhost:5173` o el puerto que asigne Vite y comienza a explorar agregando Tickers institucionales como AAPL, SPY, o TSLA.
+### 3. Run!
+Open your browser at `http://localhost:5173` or the port Vite assigns and start exploring by adding institutional tickers like AAPL, SPY, or TSLA.
 
 ---
 
-## 📝 Roadmap a Futuro
+## 📝 Future Roadmap
 
-- Integración de Árboles Binomiales, Trinomiales Dinámicos y Monte Carlo para mejor aproximación anticipada de asignación de dividendos tempranos en opciones USA.
-- Historiales de usuario en DB PostgreSQL con perfiles de Risk-Reward ratios y simulaciones Mote-Carlo superpuestas a un grid 3D.
-- Conexión ulterior a APIs de brokers para ejecución de órdenes (IBKR, Alpaca, etc).
+- Integration of Binomial, Dynamic Trinomial Trees, and Monte Carlo for better early approximation of early dividend assignment in US options.
+- User histories in PostgreSQL DB with Risk-Reward ratio profiles and Monte-Carlo simulations superimposed on a 3D grid.
+- Future connection to broker APIs for order execution (IBKR, Alpaca, etc).
 
-> Programado y orquestado con pasión por EconomiaUNMSM.
+> Programmed and orchestrated with passion by EconomiaUNMSM.
